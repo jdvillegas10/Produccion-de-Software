@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi SPA</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="logo">🌐 Mi SPA</div>
+    <div class="nav-buttons">
+      <button class="nav-btn active" onclick="showPage('login', this)">🏠 Inicio</button>
+      <button class="nav-btn nav-btn-registro" onclick="showPage('registro', this)">Registrarse</button>
+    </div>
+  </nav>
+
+  <div id="content">
+
+    <!-- ======================== -->
+    <!-- PÁGINA: LOGIN           -->
+    <!-- ======================== -->
+    <div id="login" class="page">
+
+      <div class="form-hero">
+        <h1>Log in</h1>
+      </div>
+
+      <div class="form-container">
+
+        <!-- Mensaje de respuesta (éxito o error) -->
+        <div id="login-mensaje" class="mensaje oculto"></div>
+
+        <div class="form-card">
+
+          <div class="form-group">
+            <label for="login-email">Correo electrónico</label>
+            <input
+              type="email"
+              id="login-email"
+              placeholder="ejemplo@correo.com"
+              maxlength="100"
+            />
+            <span class="error-campo" id="error-login-email"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Contraseña</label>
+            <div class="input-password-wrap">
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Tu contraseña"
+                maxlength="64"
+              />
+              <button type="button" class="toggle-pass" onclick="togglePassword('login-password', this)">👁</button>
+            </div>
+            <span class="error-campo" id="error-login-password"></span>
+          </div>
+
+          <button class="btn-submit" onclick="iniciarSesion()">Iniciar sesión</button>
+
+          <p class="form-footer-text">
+            ¿No tienes cuenta?
+            <span class="link-form" onclick="showPage('registro', document.querySelectorAll('.nav-btn')[1])">Regístrate aquí</span>
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: REGISTRO        -->
+    <!-- ======================== -->
+    <div id="registro" class="page">
+
+      <div class="form-hero">
+        <h1>Crear cuenta</h1>
+      </div>
+
+      <div class="form-container">
+
+        <!-- Mensaje de respuesta -->
+        <div id="registro-mensaje" class="mensaje oculto"></div>
+
+        <div class="form-card">
+
+          <div class="form-group">
+            <label for="reg-nombre">Nombre completo</label>
+            <input
+              type="text"
+              id="reg-nombre"
+              placeholder="Tu nombre y apellido"
+              maxlength="60"
+            />
+            <span class="error-campo" id="error-reg-nombre"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email">Correo electrónico</label>
+            <input
+              type="email"
+              id="reg-email"
+              placeholder="ejemplo@correo.com"
+              maxlength="100"
+            />
+            <span class="error-campo" id="error-reg-email"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-password">Contraseña</label>
+            <div class="input-password-wrap">
+              <input
+                type="password"
+                id="reg-password"
+                placeholder="Crea una contraseña segura"
+                maxlength="64"
+                oninput="evaluarFortaleza(this.value)"
+              />
+              <button type="button" class="toggle-pass" onclick="togglePassword('reg-password', this)">👁</button>
+            </div>
+            <span class="error-campo" id="error-reg-password"></span>
+
+            <!-- Barra de fortaleza de contraseña -->
+            <div class="fortaleza-wrap" id="fortaleza-wrap">
+              <div class="fortaleza-barra">
+                <div class="fortaleza-fill" id="fortaleza-fill"></div>
+              </div>
+              <span class="fortaleza-texto" id="fortaleza-texto"></span>
+            </div>
+
+            <!-- Requisitos de contraseña -->
+            <ul class="requisitos">
+              <li id="req-longitud">✗ Mínimo 8 caracteres</li>
+              <li id="req-mayuscula">✗ Al menos 1 letra mayúscula</li>
+              <li id="req-numero">✗ Al menos 1 número</li>
+              <li id="req-especial">✗ Al menos 1 carácter especial (!@#$%...)</li>
+            </ul>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-confirm">Confirmar contraseña</label>
+            <div class="input-password-wrap">
+              <input
+                type="password"
+                id="reg-confirm"
+                placeholder="Repite tu contraseña"
+                maxlength="64"
+              />
+              <button type="button" class="toggle-pass" onclick="togglePassword('reg-confirm', this)">👁</button>
+            </div>
+            <span class="error-campo" id="error-reg-confirm"></span>
+          </div>
+
+          <button class="btn-submit" onclick="registrarUsuario()">Crear cuenta</button>
+
+          <p class="form-footer-text">
+            ¿Ya tienes cuenta?
+            <span class="link-form" onclick="showPage('login', document.querySelectorAll('.nav-btn')[0])">Inicia sesión aquí</span>
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: RÁPIDO          -->
+    <!-- ======================== -->
+    <div id="rapido" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+        <h1>⚡ Velocidad y rendimiento</h1>
+        <p>Por qué las SPAs son más rápidas que las páginas tradicionales</p>
+      </div>
+      <div class="about-content">
+        <div class="about-card">
+          <h2>🚀 ¿Por qué es tan rápido?</h2>
+          <p>En una página web tradicional, cada vez que haces clic en un enlace el navegador tiene que pedir al servidor una página completamente nueva, esperar la respuesta y volver a cargar todo desde cero. En una SPA esto no ocurre: el HTML, el CSS y el JavaScript ya están cargados desde el principio, y JavaScript simplemente muestra u oculta secciones según lo que el usuario necesite.</p>
+        </div>
+        <div class="about-card">
+          <h2>⏱️ Menos tiempo de espera</h2>
+          <p>Al eliminar las recargas completas de página, el usuario percibe la navegación como inmediata. No hay pantallas en blanco ni tiempos de carga entre secciones. Esto mejora enormemente la experiencia del usuario, especialmente en dispositivos con conexiones lentas o en aplicaciones con mucho tráfico de datos.</p>
+        </div>
+        <div class="about-card">
+          <h2>💡 JavaScript como motor</h2>
+          <p>El secreto detrás de esta velocidad es JavaScript. Con funciones simples como <strong>document.getElementById()</strong> y <strong>style.display</strong>, podemos controlar qué contenido se muestra en pantalla sin necesidad de comunicarnos con ningún servidor. Todo ocurre directamente en el navegador del usuario, en cuestión de milisegundos.</p>
+        </div>
+        <button class="btn-volver" onclick="showPage('login', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: ESTILIZADO      -->
+    <!-- ======================== -->
+    <div id="estilizado" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">
+        <h1>🎨 Diseño y estilos</h1>
+        <p>Cómo el CSS transforma una página simple en algo visualmente atractivo</p>
+      </div>
+      <div class="about-content">
+        <div class="about-card">
+          <h2>🖌️ ¿Qué es CSS?</h2>
+          <p>CSS (Cascading Style Sheets) es el lenguaje que le da vida visual a las páginas web. Mientras que el HTML define la estructura y el contenido, el CSS se encarga de los colores, las fuentes, los tamaños, los espaciados y las animaciones. Sin CSS, una página web sería solo texto plano sobre un fondo blanco.</p>
+        </div>
+        <div class="about-card">
+          <h2>🌈 Gradientes y colores</h2>
+          <p>Una de las herramientas más poderosas del CSS moderno son los gradientes. Permiten crear fondos que transicionan suavemente de un color a otro, lo que le da profundidad y modernidad a cualquier diseño. En esta aplicación, cada sección tiene su propio gradiente para comunicar visualmente que estás en un lugar diferente.</p>
+        </div>
+        <div class="about-card">
+          <h2>✨ Animaciones y transiciones</h2>
+          <p>Las transiciones de CSS permiten que los cambios visuales ocurran de forma suave en lugar de brusca. Por ejemplo, cuando pasas el cursor por encima de una tarjeta, esta se eleva lentamente gracias a la propiedad <strong>transition</strong>. Estas pequeñas interacciones hacen que la página se sienta más profesional y cuidada.</p>
+        </div>
+        <button class="btn-volver" onclick="showPage('login', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: RESPONSIVE      -->
+    <!-- ======================== -->
+    <div id="responsive" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+        <h1>📱 Diseño Responsive</h1>
+        <p>Una página que se adapta a cualquier tamaño de pantalla</p>
+      </div>
+      <div class="about-content">
+        <div class="about-card">
+          <h2>📐 ¿Qué significa responsive?</h2>
+          <p>Un diseño responsive (o adaptable) es aquel que se ve bien en cualquier dispositivo: desde un teléfono móvil pequeño hasta un monitor de escritorio grande. En lugar de crear versiones separadas de una página para cada tipo de dispositivo, el diseño responsive usa técnicas de CSS para que el mismo código funcione en todos.</p>
+        </div>
+        <div class="about-card">
+          <h2>📏 Media Queries</h2>
+          <p>La herramienta principal para lograr un diseño responsive son las <strong>media queries</strong>. Son reglas de CSS que solo se aplican cuando la pantalla tiene cierto tamaño. Por ejemplo: "si la pantalla tiene menos de 600px de ancho, muestra las tarjetas en columna en lugar de en fila". Así, el mismo diseño funciona tanto en móvil como en escritorio.</p>
+        </div>
+        <div class="about-card">
+          <h2>🌍 Por qué es importante</h2>
+          <p>Hoy en día, más del 60% del tráfico web mundial proviene de dispositivos móviles. Si tu página no se adapta correctamente a pantallas pequeñas, estás perdiendo a la mayoría de tus visitantes. Un buen diseño responsive garantiza que todos los usuarios tengan una experiencia cómoda y profesional, sin importar desde dónde visiten tu página.</p>
+        </div>
+        <button class="btn-volver" onclick="showPage('login', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Universidad Católica de Colombia - Julian David Villegas Fernandez - Produccion de Software</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
