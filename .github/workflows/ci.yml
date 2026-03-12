@@ -1,73 +1,41 @@
-name: Node.js CI 
+name: Node.js CI
 
-  
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-# Este flujo de trabajo se ejecutará cuando se realice un push o pull request a la rama main 
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-on: 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  push: 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
 
-    branches: 
+      - name: Install dependencies
+        working-directory: ui-testing-clase
+        run: npm install
 
-      - main  # O la rama que desees, como "master" 
+      - name: Install Playwright browsers
+        working-directory: ui-testing-clase
+        run: npx playwright install --with-deps
 
-  pull_request: 
+      - name: Start web server
+        working-directory: activity
+        run: npx serve -l 8000 &
 
-    branches: 
+      - name: Wait for server
+        run: sleep 5
 
-      - main  # O la rama que desees, como "master" 
-
-  
-
-jobs: 
-
-  build: 
-
-    runs-on: windows-latest  # El trabajo se ejecutará en una máquina Windows 
-
-  
-
-    steps: 
-
-      # Paso 1: Checkout el código del repositorio 
-
-      - name: Checkout code 
-
-        uses: actions/checkout@v2 
-
-  
-
-      # Paso 2: Configurar Node.js 
-
-      - name: Set up Node.js 
-
-        uses: actions/setup-node@v2 
-
-        with: 
-
-          node-version: '14'  # Versión de Node.js que se usará 
-
-  
-
-      # Paso 3: Instalar dependencias 
-
-      - name: Install dependencies 
-        run: npm install  # Instalar dependencias de Node.js 
-
-
-
-
-      - name: Build project 
-
-        run: npm run build  # Si tienes configurado el proceso de compilación   
-
-      # Paso 5: Compilar el proyecto (si usas un empaquetador como Webpack o cualquier otra herramienta) 
-      - name: Run tests 
-
-        run: npm test  # Ejecutar pruebas (asegúrate de que esté configurado en tu proyecto) 
-
-      # Paso 4: Ejecutar pruebas 
-  
-
-
+      - name: Run tests
+        working-directory: ui-testing-clase
+        run: npm test
