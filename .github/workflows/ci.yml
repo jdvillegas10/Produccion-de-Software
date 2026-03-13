@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '18'
 
-      # Paso 3: Instalar dependencias del proyecto
+      # Paso 3: Instalar dependencias de Playwright
       - name: Install dependencies
         run: npm install
         working-directory: ui-testing-clase
@@ -34,14 +34,15 @@ jobs:
         run: npx playwright install --with-deps
         working-directory: ui-testing-clase
 
-      # Paso 5: Levantar el servidor local en segundo plano desde la raíz del proyecto
+      # Paso 5: Levantar servidor estático directamente sobre la carpeta activity
+      # npx serve no necesita express ni node_modules en la raíz
       - name: Start local server
-        run: Start-Process node -ArgumentList "Ejercicio1.js"
+        run: Start-Process -NoNewWindow npx -ArgumentList "serve activity -p 3000 -n"
         shell: pwsh
 
-      # Paso 6: Esperar 5 segundos para que el servidor esté listo antes de correr los tests
+      # Paso 6: Esperar a que el servidor esté listo
       - name: Wait for server to be ready
-        run: Start-Sleep -Seconds 5
+        run: Start-Sleep -Seconds 8
         shell: pwsh
 
       # Paso 7: Ejecutar los tests de Playwright
