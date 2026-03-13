@@ -11,7 +11,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    # Ubuntu maneja procesos en segundo plano de forma confiable
+    runs-on: ubuntu-latest
 
     steps:
       # Paso 1: Descargar el código del repositorio
@@ -34,18 +35,14 @@ jobs:
         run: npx playwright install --with-deps
         working-directory: ui-testing-clase
 
-      # Paso 5: Levantar servidor estático directamente sobre la carpeta activity
-      # npx serve no necesita express ni node_modules en la raíz
+      # Paso 5: Levantar el servidor en segundo plano y esperar a que esté listo
       - name: Start local server
-        run: Start-Process -NoNewWindow npx -ArgumentList "serve activity -p 3000 -n"
-        shell: pwsh
+        run: |
+          npx serve activity -p 3000 -n &
+          npx wait-on http://localhost:3000 --timeout 15000
+        working-directory: ui-testing-clase/..
 
-      # Paso 6: Esperar a que el servidor esté listo
-      - name: Wait for server to be ready
-        run: Start-Sleep -Seconds 8
-        shell: pwsh
-
-      # Paso 7: Ejecutar los tests de Playwright
+      # Paso 6: Ejecutar los tests de Playwright
       - name: Run Playwright tests
         run: npx playwright test test/ejercicio.spec.ts
         working-directory: ui-testing-clase
