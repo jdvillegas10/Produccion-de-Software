@@ -1,5 +1,6 @@
 name: Node.js CI
-
+ 
+# Se ejecuta cuando se hace push o pull request a la rama main
 on:
   push:
     branches:
@@ -7,35 +8,37 @@ on:
   pull_request:
     branches:
       - main
-
+ 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
+ 
     steps:
+      # Paso 1: Descargar el código del repositorio
       - name: Checkout code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v2
+ 
+      # Paso 2: Configurar Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
           node-version: '18'
-
+ 
+      # Paso 3: Instalar dependencias del proyecto
       - name: Install dependencies
-        working-directory: ui-testing-clase
         run: npm install
-
+        working-directory: ui-testing-clase
+ 
+      # Paso 4: Instalar los navegadores que usa Playwright
       - name: Install Playwright browsers
+        run: npx playwright install --with-deps
         working-directory: ui-testing-clase
-        run: ./node_modules/.bin/playwright install --with-deps
-
-      - name: Start web server
-        working-directory: activity
-        run: npx serve -l 8000 &
-
-      - name: Wait for server
-        run: sleep 5
-
-      - name: Run tests
+ 
+      # Paso 5: Levantar el servidor local en segundo plano
+      - name: Start local server
+        run: node Ejercicio1.js &
+ 
+      # Paso 6: Ejecutar los tests de Playwright
+      - name: Run Playwright tests
+        run: npx playwright test test/ejercicio.spec.ts
         working-directory: ui-testing-clase
-        run: npm test
