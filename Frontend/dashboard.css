@@ -1,0 +1,323 @@
+/* ===== RESET Y BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== NAVBAR ===== */
+#navbar {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  color: #ccc;
+  background-color: transparent;
+  border: 2px solid transparent;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  color: white;
+  border-color: #e94560;
+  background-color: rgba(233, 69, 96, 0.15);
+  transform: translateY(-2px);
+}
+
+.nav-btn.active {
+  color: white;
+  background-color: #e94560;
+  border-color: #e94560;
+  box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+}
+
+/* ===== CONTENIDO ===== */
+#content {
+  flex: 1;
+}
+
+.page {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HERO - INICIO ===== */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
+  text-align: center;
+  padding: 100px 20px 80px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  color: #aab4c8;
+  margin-bottom: 35px;
+}
+
+.btn-hero {
+  background: linear-gradient(135deg, #e94560, #c23152);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+}
+
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(233, 69, 96, 0.5);
+}
+
+/* ===== CARDS ===== */
+.cards-section {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.cards-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 40px;
+  color: #1a1a2e;
+}
+
+.cards {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 240px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid #e94560;
+}
+
+/* Cards clickeables: cursor de mano y efecto más pronunciado */
+.card.clickeable {
+  cursor: pointer;
+}
+
+.card.clickeable:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  border-top-color: #c23152;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #1a1a2e;
+}
+
+.card p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Texto "Ver más →" dentro de la card */
+.card-link {
+  display: inline-block;
+  color: #e94560;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  transition: transform 0.2s ease;
+}
+
+.card.clickeable:hover .card-link {
+  transform: translateX(5px);
+}
+
+/* ===== PÁGINAS INTERNAS (Rápido, Estilizado, Responsive, Acerca de) ===== */
+.about-hero {
+  color: white;
+  text-align: center;
+  padding: 70px 20px 60px;
+}
+
+.about-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.about-hero p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.about-content {
+  padding: 50px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.about-card {
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  border-left: 5px solid #e94560;
+}
+
+.about-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #1a1a2e;
+}
+
+.about-card p {
+  color: #555;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+/* ===== BOTÓN VOLVER ===== */
+.btn-volver {
+  background: transparent;
+  color: #e94560;
+  border: 2px solid #e94560;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-volver:hover {
+  background-color: #e94560;
+  color: white;
+  transform: translateX(-4px);
+}
+
+/* ===== TECH STACK ===== */
+.tech-stack {
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.tech-stack h2 {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #1a1a2e;
+}
+
+.tech-items {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.tech-item:hover { transform: scale(1.07); }
+.tech-item.html  { background: #fff3e0; color: #e65100; }
+.tech-item.css   { background: #e3f2fd; color: #1565c0; }
+.tech-item.js    { background: #fffde7; color: #f57f17; }
+
+.tech-icon { font-size: 1.3rem; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: #1a1a2e;
+  color: #aab4c8;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .hero h1       { font-size: 2rem; }
+  .about-hero h1 { font-size: 1.8rem; }
+  #navbar        { padding: 12px 20px; }
+  .logo          { font-size: 1.1rem; }
+  .nav-btn       { padding: 8px 16px; font-size: 0.85rem; }
+  .cards-section, .about-content { padding: 40px 20px; }
+  .cards         { flex-direction: column; align-items: center; }
+}

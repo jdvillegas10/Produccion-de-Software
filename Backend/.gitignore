@@ -1,0 +1,9 @@
+#Entornos Virtuales
+.venv/
+
+#Archivos de Python
+/app/__pycache__/
+/app/routes/__pycache__
+
+#Conexion base de datos
+.env

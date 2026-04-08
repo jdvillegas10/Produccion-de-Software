@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi SPA</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <script>
+        // SEGURIDAD: Si no hay token, el usuario no puede estar aquí
+        if (!localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    </script>
+
+  <nav id="navbar">
+    <div class="logo">🌐 Mi SPA</div>
+    <div class="nav-buttons">
+      <button class="nav-btn active" onclick="showPage('inicio', this)">🏠 Inicio</button>
+      <button class="nav-btn" onclick="showPage('acerca', this)">ℹ️ Acerca de</button>
+    </div>
+  </nav>
+
+  <div id="content">
+
+    <!-- ======================== -->
+    <!-- PÁGINA DE INICIO        -->
+    <!-- ======================== -->
+    <div id="inicio" class="page">
+      <div class="hero">
+        <h1>¡Bienvenido a mi SPA! 🚀</h1>
+        <p class="hero-sub">Una Single Page Application moderna y estilizada</p>
+        <button class="btn-hero" onclick="showPage('acerca', document.querySelectorAll('.nav-btn')[1])">
+          Conoce más →
+        </button>
+      </div>
+
+      <div class="cards-section">
+        <h2>¿Qué puedes hacer aquí?</h2>
+        <div class="cards">
+
+          <!-- Card Rápido — lleva a la página "rapido" -->
+          <div class="card clickeable" onclick="showPage('rapido')">
+            <div class="card-icon">⚡</div>
+            <h3>Rápido</h3>
+            <p>Sin recargas de página. Todo cambia al instante gracias a JavaScript.</p>
+            <span class="card-link">Ver más →</span>
+          </div>
+
+          <!-- Card Estilizado — lleva a la página "estilizado" -->
+          <div class="card clickeable" onclick="showPage('estilizado')">
+            <div class="card-icon">🎨</div>
+            <h3>Estilizado</h3>
+            <p>Diseño moderno con CSS avanzado, gradientes y animaciones suaves.</p>
+            <span class="card-link">Ver más →</span>
+          </div>
+
+          <!-- Card Responsive — lleva a la página "responsive" -->
+          <div class="card clickeable" onclick="showPage('responsive')">
+            <div class="card-icon">📱</div>
+            <h3>Responsive</h3>
+            <p>Se adapta a cualquier pantalla, desde móviles hasta escritorios.</p>
+            <span class="card-link">Ver más →</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA ACERCA DE        -->
+    <!-- ======================== -->
+    <div id="acerca" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #0f3460, #16213e);">
+        <h1>Acerca de esta aplicación 💡</h1>
+        <p>Aprende cómo funciona una SPA con HTML, CSS y JavaScript</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-card">
+          <h2>📄 ¿Qué es una SPA?</h2>
+          <p>Una <strong>Single Page Application (SPA)</strong> es una aplicación web que carga una sola página HTML y actualiza el contenido dinámicamente sin recargar el navegador. Esto la hace mucho más rápida y fluida para el usuario.</p>
+        </div>
+
+        <div class="tech-stack">
+          <h2>🛠️ Tecnologías usadas</h2>
+          <div class="tech-items">
+            <div class="tech-item html"><span class="tech-icon">🌐</span><span>HTML5</span></div>
+            <div class="tech-item css"><span class="tech-icon">🎨</span><span>CSS3</span></div>
+            <div class="tech-item js"><span class="tech-icon">⚡</span><span>JavaScript</span></div>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <h2>👩‍💻 Creado para</h2>
+          <p>Este proyecto fue desarrollado como ejercicio educativo para aprender los fundamentos del desarrollo web front-end y el comportamiento de las aplicaciones de una sola página.</p>
+        </div>
+
+        <button class="btn-volver" onclick="showPage('inicio', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: RÁPIDO          -->
+    <!-- ======================== -->
+    <div id="rapido" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+        <h1>⚡ Velocidad y rendimiento</h1>
+        <p>Por qué las SPAs son más rápidas que las páginas tradicionales</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-card">
+          <h2>🚀 ¿Por qué es tan rápido?</h2>
+          <p>En una página web tradicional, cada vez que haces clic en un enlace el navegador tiene que pedir al servidor una página completamente nueva, esperar la respuesta y volver a cargar todo desde cero. En una SPA esto no ocurre: el HTML, el CSS y el JavaScript ya están cargados desde el principio, y JavaScript simplemente muestra u oculta secciones según lo que el usuario necesite.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>⏱️ Menos tiempo de espera</h2>
+          <p>Al eliminar las recargas completas de página, el usuario percibe la navegación como inmediata. No hay pantallas en blanco ni tiempos de carga entre secciones. Esto mejora enormemente la experiencia del usuario, especialmente en dispositivos con conexiones lentas o en aplicaciones con mucho tráfico de datos.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>💡 JavaScript como motor</h2>
+          <p>El secreto detrás de esta velocidad es JavaScript. Con funciones simples como <strong>document.getElementById()</strong> y <strong>style.display</strong>, podemos controlar qué contenido se muestra en pantalla sin necesidad de comunicarnos con ningún servidor. Todo ocurre directamente en el navegador del usuario, en cuestión de milisegundos.</p>
+        </div>
+
+        <button class="btn-volver" onclick="showPage('inicio', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: ESTILIZADO      -->
+    <!-- ======================== -->
+    <div id="estilizado" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">
+        <h1>🎨 Diseño y estilos</h1>
+        <p>Cómo el CSS transforma una página simple en algo visualmente atractivo</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-card">
+          <h2>🖌️ ¿Qué es CSS?</h2>
+          <p>CSS (Cascading Style Sheets) es el lenguaje que le da vida visual a las páginas web. Mientras que el HTML define la estructura y el contenido, el CSS se encarga de los colores, las fuentes, los tamaños, los espaciados y las animaciones. Sin CSS, una página web sería solo texto plano sobre un fondo blanco.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>🌈 Gradientes y colores</h2>
+          <p>Una de las herramientas más poderosas del CSS moderno son los gradientes. Permiten crear fondos que transicionan suavemente de un color a otro, lo que le da profundidad y modernidad a cualquier diseño. En esta aplicación, cada sección tiene su propio gradiente para comunicar visualmente que estás en un lugar diferente.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>✨ Animaciones y transiciones</h2>
+          <p>Las transiciones de CSS permiten que los cambios visuales ocurran de forma suave en lugar de brusca. Por ejemplo, cuando pasas el cursor por encima de una tarjeta, esta se eleva lentamente gracias a la propiedad <strong>transition</strong>. Estas pequeñas interacciones hacen que la página se sienta más profesional y cuidada.</p>
+        </div>
+
+        <button class="btn-volver" onclick="showPage('inicio', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- PÁGINA: RESPONSIVE      -->
+    <!-- ======================== -->
+    <div id="responsive" class="page">
+      <div class="about-hero" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+        <h1>📱 Diseño Responsive</h1>
+        <p>Una página que se adapta a cualquier tamaño de pantalla</p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-card">
+          <h2>📐 ¿Qué significa responsive?</h2>
+          <p>Un diseño responsive (o adaptable) es aquel que se ve bien en cualquier dispositivo: desde un teléfono móvil pequeño hasta un monitor de escritorio grande. En lugar de crear versiones separadas de una página para cada tipo de dispositivo, el diseño responsive usa técnicas de CSS para que el mismo código funcione en todos.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>📏 Media Queries</h2>
+          <p>La herramienta principal para lograr un diseño responsive son las <strong>media queries</strong>. Son reglas de CSS que solo se aplican cuando la pantalla tiene cierto tamaño. Por ejemplo: "si la pantalla tiene menos de 600px de ancho, muestra las tarjetas en columna en lugar de en fila". Así, el mismo diseño funciona tanto en móvil como en escritorio.</p>
+        </div>
+
+        <div class="about-card">
+          <h2>🌍 Por qué es importante</h2>
+          <p>Hoy en día, más del 60% del tráfico web mundial proviene de dispositivos móviles. Si tu página no se adapta correctamente a pantallas pequeñas, estás perdiendo a la mayoría de tus visitantes. Un buen diseño responsive garantiza que todos los usuarios tengan una experiencia cómoda y profesional, sin importar desde dónde visiten tu página.</p>
+        </div>
+
+        <button class="btn-volver" onclick="showPage('inicio', document.querySelectorAll('.nav-btn')[0])">← Volver al inicio</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Mi SPA — Hecho con ❤️ y JavaScript</p>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
